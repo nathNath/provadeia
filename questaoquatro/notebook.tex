@@ -1,0 +1,2299 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{questaoquatro}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Questão 4 - Prova 2 de Inteligência
+Artificial}\label{questuxe3o-4---prova-2-de-inteliguxeancia-artificial}
+
+\subsection{Lucas Nóbrega e Nathália de
+Vasconcelos}\label{lucas-nuxf3brega-e-nathuxe1lia-de-vasconcelos}
+
+Enunciado: utilizando a base de clusterização encontrada nesse link
+(https://drive.google.com/file/d/1\_702eOQbimT1HhTuozwMEKV6HHOykLaJ/view),
+execute os algoritmos de clusterização citados a seguir e compare os
+resultados.
+
+\begin{itemize}
+\tightlist
+\item
+  Execute os algoritmos de agrupamento K-means e Hierárquico com os
+  seguintes valores de K: 2, 5, 10 e 100. Compare os agrupamento
+  resultantes dos 2 algoritmos.
+\item
+  Escolha um número fixo de K e altere o parâmetro do K-Means referente
+  ao número máximo de iterações: 1, 10 e 100 e o parâmetro de Linkage do
+  Hierárquico, quais diferenças puderam ser observadas?
+\item
+  Faça uma comparação entre os 2 algoritmos, qual você acha que teve o
+  melhor desempenho e por quê?
+\end{itemize}
+
+    \section{Pré-processamento de
+dados}\label{pruxe9-processamento-de-dados}
+
+    \subsubsection{Importando o dataset da
+questão}\label{importando-o-dataset-da-questuxe3o}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{io}\PY{n+nn}{.}\PY{n+nn}{arff} \PY{k}{as} \PY{n+nn}{io}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{c+c1}{\PYZsh{} Aumentar o tamanho do plot na proporção 8/13}
+        \PY{n}{x\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{17}
+        \PY{n}{y\PYZus{}size} \PY{o}{=} \PY{n}{x\PYZus{}size} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{8}\PY{o}{/}\PY{l+m+mi}{13}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{n}{x\PYZus{}size}\PY{p}{,} \PY{n}{y\PYZus{}size}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Aumentar o tamanho do plot na proporção 8/13}
+        
+        \PY{c+c1}{\PYZsh{} Read arff data}
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Genes\PYZus{}Atividade\PYZus{}IA.arff}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+            \PY{n}{values} \PY{o}{=} \PY{n}{io}\PY{o}{.}\PY{n}{loadarff}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+            \PY{n}{f}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+            
+        \PY{n}{dataset} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}X = dataset.iloc[:, :\PYZhy{}1].values}
+        \PY{c+c1}{\PYZsh{}y = dataset.iloc[:, 20].values}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<Figure size 1224x753.231 with 0 Axes>
+    \end{verbatim}
+
+    
+    \subsubsection{Melhorando a visualização da tabela do
+dataset}\label{melhorando-a-visualizauxe7uxe3o-da-tabela-do-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{max\PYZus{}columns}\PY{p}{,} \PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{max\PYZus{}rows}\PY{p}{)}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{max\PYZus{}columns} \PY{o}{=} \PY{l+m+mi}{50}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{max\PYZus{}columns}\PY{p}{,} \PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{max\PYZus{}rows}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}pd.options.display.max\PYZus{}rows = }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+20 60
+50 60
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{dataset}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}        adipose\_tissue  adrenal\_gland  animal\_ovary     appendix      bladder  \textbackslash{}
+        count     2000.000000    2000.000000   2000.000000  2000.000000  2000.000000   
+        mean        39.040157      41.486336     51.338392    52.555181    48.932735   
+        std        195.264717     181.466441    210.726346   252.295704   221.732356   
+        min          0.000003       0.000003      0.000004     0.000004     0.000004   
+        25\%          3.173068       3.105311      3.140023     7.117802     7.087438   
+        50\%         12.692271      15.526556     19.625143    21.353406    21.262314   
+        75\%         31.730678      34.158423     43.175314    46.265713    42.524627   
+        max       7377.382624    5216.922745   4827.785071  7644.519332  7548.121360   
+        
+                bone\_marrow  cerebral\_cortex        colon     duodenum  endometrium  \textbackslash{}
+        count   2000.000000      2000.000000  2000.000000  2000.000000  2000.000000   
+        mean      53.852077        45.797667    40.663197    39.632611    52.066032   
+        std      393.758129       123.183344   157.028175   185.991398   186.169270   
+        min        0.000003         0.000004     0.000003     0.000003     0.000004   
+        25\%        1.257345         7.631545     3.071134     2.765053     7.428423   
+        50\%        9.430086        19.078863    15.355670    13.825265    21.224067   
+        75\%       34.576981        41.973499    33.782474    30.415583    50.937760   
+        max    12623.741610      2663.409328  3528.732999  5275.721159  6460.605882   
+        
+                 esophagus  fallopian\_tube   gallbladder        heart       kidney  \textbackslash{}
+        count  2000.000000     2000.000000   2000.000000  2000.000000  2000.000000   
+        mean     41.493874       53.691974     57.023709    21.915492    27.728612   
+        std     139.247221      261.725555    314.203534   116.726607   136.411996   
+        min       0.000004        0.000004      0.000004     0.000002     0.000002   
+        25\%       3.506638        7.896982      8.147757     1.569051     2.492157   
+        50\%      14.026553       23.690945     20.369393     6.724503     9.968628   
+        75\%      35.066382       47.381890     48.886544    15.690507    24.921571   
+        max    3857.301972     9733.029992  12201.266550  4512.141526  5587.416115   
+        
+                      liver         lung   lymph\_node      pancreas     placenta  \textbackslash{}
+        count   2000.000000  2000.000000  2000.000000   2000.000000  2000.000000   
+        mean      35.790131    54.864549    54.294117     35.087462    52.105545   
+        std      336.523288   277.654367   277.993904   1108.114405   242.242244   
+        min        0.000003     0.000004     0.000004      0.000002     0.000004   
+        25\%        1.170095     7.812597     3.751913      0.602562     4.128284   
+        50\%        5.850474    23.437791    18.759564      2.008539    20.641418   
+        75\%       17.551423    46.875582    48.774865      6.025616    45.411120   
+        max    13058.258680  9707.151804  7931.543465  48970.179710  9032.684565   
+        
+                  prostate       rectum  salivary\_gland  skeletal\_muscle         skin  \textbackslash{}
+        count  2000.000000  2000.000000     2000.000000      2000.000000  2000.000000   
+        mean     46.389605    42.376928       27.628763        22.053380    35.257338   
+        std     241.613858   165.470468      308.543568       208.651352    95.223057   
+        min       0.000004     0.000003        0.000003         0.000002     0.000003   
+        25\%       7.150531     3.094211        2.414023         0.427236     3.304699   
+        50\%      17.876327    15.471057        8.046744         2.136179    16.523495   
+        75\%      42.903184    34.036326       18.775735         8.544717    36.351689   
+        max    9585.286431  3945.119614    13529.258260      7732.968610  1939.858329   
+        
+               small\_intestine  smooth\_muscle        spleen      stomach       testis  \textbackslash{}
+        count      2000.000000    2000.000000   2000.000000  2000.000000  2000.000000   
+        mean         43.396844      52.185982     56.164531    37.587312    44.472439   
+        std         193.638153     233.848790    347.561819   207.009834   114.878046   
+        min           0.000003       0.000004      0.000004     0.000003     0.000003   
+        25\%           5.983976       4.248427      3.678518     5.874027     6.997996   
+        50\%          14.959941      21.242137     22.071107    14.685068    20.993988   
+        75\%          32.911870      42.484273     47.820732    29.370135    45.486973   
+        max        5032.524122    8322.669088  12036.110500  7486.447452  2554.268510   
+        
+                    thyroid       tonsil  
+        count   2000.000000  2000.000000  
+        mean      72.736881    46.143284  
+        std      742.846516   222.768691  
+        min        0.000005     0.000003  
+        25\%        4.580134     3.174720  
+        50\%       22.900670    15.873599  
+        75\%       54.961609    38.096639  
+        max    32253.304180  6231.975147  
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{Visualizando o dataset através de um box
+plot, a fim de encontrar possíveis
+\emph{outliers}}{Visualizando o dataset através de um box plot, a fim de encontrar possíveis outliers}}\label{visualizando-o-dataset-atravuxe9s-de-um-box-plot-a-fim-de-encontrar-possuxedveis-outliers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Aumentar o tamanho do plot na proporção 8/13}
+        \PY{n}{x\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{17}
+        \PY{n}{y\PYZus{}size} \PY{o}{=} \PY{n}{x\PYZus{}size} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{8}\PY{o}{/}\PY{l+m+mi}{13}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{n}{x\PYZus{}size}\PY{p}{,} \PY{n}{y\PYZus{}size}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Aumentar o tamanho do plot na proporção 8/13}
+        \PY{n}{dataset}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7efced3770b8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{\texorpdfstring{Detectamos \emph{outliers}, logo faz-se
+necessário um ajuste na
+escala}{Detectamos outliers, logo faz-se necessário um ajuste na escala}}\label{detectamos-outliers-logo-faz-se-necessuxe1rio-um-ajuste-na-escala}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{RobustScaler}
+        \PY{n}{transformer} \PY{o}{=} \PY{n}{RobustScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{n}{dataset}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{n}{dataset}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{transformer}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{\texorpdfstring{Visualizando o boxplot depois de ter sua
+escala reajustada, percebe-se a presença de um \emph{outlier} na coluna
+18...}{Visualizando o boxplot depois de ter sua escala reajustada, percebe-se a presença de um outlier na coluna 18...}}\label{visualizando-o-boxplot-depois-de-ter-sua-escala-reajustada-percebe-se-a-presenuxe7a-de-um-outlier-na-coluna-18...}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Aumentar o tamanho do plot na proporção 8/13}
+        \PY{n}{x\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{17}
+        \PY{n}{y\PYZus{}size} \PY{o}{=} \PY{n}{x\PYZus{}size} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{8}\PY{o}{/}\PY{l+m+mi}{13}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{n}{x\PYZus{}size}\PY{p}{,} \PY{n}{y\PYZus{}size}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Aumentar o tamanho do plot na proporção 8/13}
+        \PY{n}{df}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7efce959b080>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Tentando localizar a instância com um valor acima de
+9000}\label{tentando-localizar-a-instuxe2ncia-com-um-valor-acima-de-9000}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{a} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+m+mi}{18}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{9000}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{a}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}             0    1         2    3     4         5         6     7    8   \textbackslash{}
+         1940 -0.377778 -0.5  0.490196 -0.5 -0.59 -0.283019 -0.555555 -0.49  0.2   
+         
+                     9         10    11   12       13        14        15    16  \textbackslash{}
+         1940 -0.478049 -0.444444 -0.58 -0.5  0.15873 -0.444444 -0.357143 -0.58   
+         
+                     17           18   19    20   21        22        23    24  \textbackslash{}
+         1940 -0.408333  9029.629629  0.4 -0.49 -0.5  0.655738 -0.236842 -0.45   
+         
+                     25        26        27     28        29        30        31  
+         1940 -0.111111 -0.544444 -0.416667 -0.375 -0.472727 -0.454545 -0.454545  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{aux} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+m+mi}{18}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{\texorpdfstring{Substituindo o valor desse \emph{outlier}
+pela mediana da coluna 18 do
+dataset}{Substituindo o valor desse outlier pela mediana da coluna 18 do dataset}}\label{substituindo-o-valor-desse-outlier-pela-mediana-da-coluna-18-do-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df}\PY{p}{[}\PY{l+m+mi}{18}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+m+mi}{18}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+m+mf}{9029.629629}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{nanmedian}\PY{p}{(}\PY{n}{aux}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Identificando o número de
+classes}\label{identificando-o-nuxfamero-de-classes}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{class\PYZus{}array} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{]}
+\end{Verbatim}
+
+
+    \subsubsection{Significa que existem 2000 classes, ou seja, uma para
+cada
+instância.}\label{significa-que-existem-2000-classes-ou-seja-uma-para-cada-instuxe2ncia.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{class\PYZus{}array}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} count                   2000
+         unique                  2000
+         top       b'ENSG00000008226'
+         freq                       1
+         Name: class, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{class\PYZus{}array}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{a}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 2000
+\end{Verbatim}
+            
+    \section{1. Execução dos algoritmos de aprendizagem de máquina K-means e
+Hierárquico para resolver um problema de
+agrupamento}\label{execuuxe7uxe3o-dos-algoritmos-de-aprendizagem-de-muxe1quina-k-means-e-hieruxe1rquico-para-resolver-um-problema-de-agrupamento}
+
+    Execute os algoritmos de agrupamento K-means e Hierárquico com os
+seguintes valores de K: 2, 5, 10 e 100. Compare os agrupamentos
+resultantes dos 2 algoritmos.
+
+    \subsubsection{Separando as entradas do problema na variável X e a saída
+esperada do problema na variável
+y}\label{separando-as-entradas-do-problema-na-variuxe1vel-x-e-a-sauxedda-esperada-do-problema-na-variuxe1vel-y}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{X} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{y} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+    \subsection{K-means, K = 2}\label{k-means-k-2}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+         \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}\PY{p}{)}
+         \PY{n}{a}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} 1
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{Perceba que a soma da quantidade de
+rótulos foi igual a 1 devido ao \emph{outlier} na coluna
+\texttt{"pancreas"} que causou um desbalanceamento nas
+classes}{Perceba que a soma da quantidade de rótulos foi igual a 1 devido ao outlier na coluna "pancreas" que causou um desbalanceamento nas classes}}\label{perceba-que-a-soma-da-quantidade-de-ruxf3tulos-foi-igual-a-1-devido-ao-outlier-na-coluna-pancreas-que-causou-um-desbalanceamento-nas-classes}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{unique}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{dicionario} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{unique}\PY{p}{,} \PY{n}{counts}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dicionario}\PY{p}{)}
+         \PY{n}{lista} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dicionario}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Classe}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: 1999, 1: 1\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}    Classe  Nº Instancias
+         0       0           1999
+         1       1              1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} array([39.05873463, 41.50708976, 51.34443912, 52.58058144, 48.95703592,
+                53.87901696, 45.82057733, 40.68338489, 39.64275479, 52.09186528,
+                41.51463154, 53.7184383 , 57.05223534, 21.9219698 , 27.74248304,
+                35.80803475, 54.89160398, 54.32108966, 10.60767637, 52.11302411,
+                46.41263207, 42.39812701, 27.63319137, 22.06430544, 35.27414936,
+                43.41256626, 52.21187541, 56.19078705, 37.60317633, 44.49328609,
+                72.77326733, 46.16636715])
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{Isso é confirmado pois é possível ver que
+ele foi capturado no \texttt{kmeans.cluster\_centers\_{[}1{]}} (valor
+4.89e+4)}{Isso é confirmado pois é possível ver que ele foi capturado no kmeans.cluster\_centers\_{[}1{]} (valor 4.89e+4)}}\label{isso-uxe9-confirmado-pois-uxe9-possuxedvel-ver-que-ele-foi-capturado-no-kmeans.cluster_centers_1-valor-4.89e4}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} array([1.90384068e+00, 3.10531000e-06, 3.92502851e+01, 1.77945050e+00,
+                3.54371895e-01, 3.14336000e-06, 3.81577000e-06, 3.07113403e-01,
+                1.93553711e+01, 4.24481333e-01, 3.50664000e-06, 7.89698174e-01,
+                4.07388000e-06, 8.96600403e+00, 2.49216000e-06, 2.92524000e-06,
+                7.81259703e-01, 3.75191271e-01, 4.89701797e+04, 3.71545526e+01,
+                3.57526536e-01, 3.09421000e-06, 1.87757351e+01, 2.13617917e-01,
+                1.65234951e+00, 1.19679527e+01, 4.24842730e-01, 3.67851788e+00,
+                5.87402703e+00, 2.79919837e+00, 4.58013000e-06, 3.17472000e-06])
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{Adicionando a coluna calculada
+\texttt{kmeans.label\_} ao conjunto de
+dados}{Adicionando a coluna calculada kmeans.label\_ ao conjunto de dados}}\label{adicionando-a-coluna-calculada-kmeans.label_-ao-conjunto-de-dados}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+
+
+    \subsubsection{\texorpdfstring{Provado que a única instância da classe 1
+que contém o valor com \emph{outlier}, ou seja, o \emph{outilier}
+interfere diretamente na análise de
+dados.}{Provado que a única instância da classe 1 que contém o valor com outlier, ou seja, o outilier interfere diretamente na análise de dados.}}\label{provado-que-a-uxfanica-instuxe2ncia-da-classe-1-que-contuxe9m-o-valor-com-outlier-ou-seja-o-outilier-interfere-diretamente-na-anuxe1lise-de-dados.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pancreas}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{40000}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}       adipose\_tissue  adrenal\_gland  animal\_ovary  appendix   bladder  \textbackslash{}
+         1940        1.903841       0.000003     39.250285   1.77945  0.354372   
+         
+               bone\_marrow  cerebral\_cortex     colon   duodenum  endometrium  \textbackslash{}
+         1940     0.000003         0.000004  0.307113  19.355371     0.424481   
+         
+               esophagus  fallopian\_tube  gallbladder     heart    kidney     liver  \textbackslash{}
+         1940   0.000004        0.789698     0.000004  8.966004  0.000002  0.000003   
+         
+                  lung  lymph\_node     pancreas   placenta  prostate    rectum  \textbackslash{}
+         1940  0.78126    0.375191  48970.17971  37.154553  0.357527  0.000003   
+         
+               salivary\_gland  skeletal\_muscle     skin  small\_intestine  \textbackslash{}
+         1940       18.775735         0.213618  1.65235        11.967953   
+         
+               smooth\_muscle    spleen   stomach    testis   thyroid    tonsil  \textbackslash{}
+         1940       0.424843  3.678518  5.874027  2.799198  0.000005  0.000003   
+         
+                            class  K-classes  
+         1940  b'ENSG00000091704'          1  
+\end{Verbatim}
+            
+    \subsection{K-means, K = 5}\label{k-means-k-5}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+         \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{\texorpdfstring{Analisando os rótulos de saída do
+algoritmo, percebe-se que temos 3 classes, de forma que a classe 0 é
+afetada pelo desbalanceamento das classes devido ao \emph{outlier}
+presente na coluna
+\texttt{"pancreas"}}{Analisando os rótulos de saída do algoritmo, percebe-se que temos 3 classes, de forma que a classe 0 é afetada pelo desbalanceamento das classes devido ao outlier presente na coluna "pancreas"}}\label{analisando-os-ruxf3tulos-de-sauxedda-do-algoritmo-percebe-se-que-temos-3-classes-de-forma-que-a-classe-0-uxe9-afetada-pelo-desbalanceamento-das-classes-devido-ao-outlier-presente-na-coluna-pancreas}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{unique}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{dicionario} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{unique}\PY{p}{,} \PY{n}{counts}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dicionario}\PY{p}{)}
+         \PY{n}{lista} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dicionario}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Classe}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: 1995, 1: 1, 2: 2, 3: 1, 4: 1\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}    Classe  Nº Instancias
+         0       0           1995
+         1       1              1
+         2       2              2
+         3       3              1
+         4       4              1
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{A quantidade de instâncias de cada classe
+afetou diretamente na classificação das classes, devido ao número de
+\emph{outliers} nas
+amostras.}{A quantidade de instâncias de cada classe afetou diretamente na classificação das classes, devido ao número de outliers nas amostras.}}\label{a-quantidade-de-instuxe2ncias-de-cada-classe-afetou-diretamente-na-classificauxe7uxe3o-das-classes-devido-ao-nuxfamero-de-outliers-nas-amostras.}
+
+    \subsubsection{\texorpdfstring{Adicionando a coluna calculada
+\texttt{kmeans.label\_} ao conjunto de
+dados}{Adicionando a coluna calculada kmeans.label\_ ao conjunto de dados}}\label{adicionando-a-coluna-calculada-kmeans.label_-ao-conjunto-de-dados}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}       adipose\_tissue  adrenal\_gland  animal\_ovary     appendix      bladder  \textbackslash{}
+         591         0.317307       1.863187      0.000004     0.711780     0.708744   
+         1315     2027.590321    1400.495332   2296.141680  7644.519332  4514.697940   
+         1718     7377.382624    3490.369741   4827.785071  5295.644677  7548.121360   
+         1874       28.557610      46.579667     54.950399  1854.187417   836.317672   
+         1940        1.903841       0.000003     39.250285     1.779450     0.354372   
+         
+                bone\_marrow  cerebral\_cortex        colon     duodenum  endometrium  \textbackslash{}
+         591       0.628672         0.381577     0.307113     0.000003     0.000004   
+         1315   3463.984873      2430.647195  2346.346398  1800.049515  6460.605882   
+         1718   6349.591147      1938.412520  3095.703101  4330.073027  2996.838208   
+         1874  12623.741610        19.078863   546.661857  5275.721159   114.609960   
+         1940      0.000003         0.000004     0.307113    19.355371     0.424481   
+         
+                 esophagus  fallopian\_tube   gallbladder        heart       kidney  \textbackslash{}
+         591      0.350664        0.394849      0.814776     6.724503     1.246079   
+         1315  3857.301972     3293.041385   3637.973632   428.126692   799.982414   
+         1718  2114.502808     3158.792695  12201.266550  1187.995534  5587.416115   
+         1874   199.878375      110.557744   3055.408986    26.898012    32.398042   
+         1940     0.000004        0.789698      0.000004     8.966004     0.000002   
+         
+                     liver         lung   lymph\_node      pancreas     placenta  \textbackslash{}
+         591      0.000003     0.390630    26.263389      0.000002     0.412828   
+         1315  1292.954824  4394.585827  7931.543465    188.802629  3798.020932   
+         1718  5344.408289  9707.151804  5612.861412    843.586214  9032.684565   
+         1874   125.785198  2179.714570  1485.757432     18.076847   202.285898   
+         1940     0.000003     0.781260     0.375191  48970.179710    37.154553   
+         
+                  prostate       rectum  salivary\_gland  skeletal\_muscle         skin  \textbackslash{}
+         591      0.715053     0.309421        1.341124         0.000002     2.313289   
+         1315  3128.357190  2558.912879      992.431712       183.711409  1391.278291   
+         1718  2288.169831  3945.119614     1166.777824       324.699234  1311.965514   
+         1874    60.779511   519.827526    13529.258260         2.136179    99.140971   
+         1940     0.357527     0.000003       18.775735         0.213618     1.652350   
+         
+               small\_intestine  smooth\_muscle        spleen      stomach       testis  \textbackslash{}
+         591          0.000003       0.424843      0.367852     0.000003     2.449299   
+         1315      2600.037730    8322.669088   5201.424283  2232.130272  1137.174337   
+         1718      5032.524122    4112.477630  12036.110500  3072.116138  1445.086157   
+         1874      2058.487869     195.427656   1364.730134  7486.447452    24.492986   
+         1940        11.967953       0.424843      3.678518     5.874027     2.799198   
+         
+                    thyroid       tonsil               class  K-classes  
+         591   32253.304180     0.952416  b'ENSG00000042832'          3  
+         1315   2729.759911  6231.975147  b'ENSG00000075624'          2  
+         1718   4919.064000  2809.627104  b'ENSG00000087086'          2  
+         1874     87.022547  1561.962187  b'ENSG00000090382'          4  
+         1940      0.000005     0.000003  b'ENSG00000091704'          1  
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{Acima podemos ver as instâncias que
+pertencem às demais classes. Em cada uma delas existe um \emph{outlier}
+que altera o comportamento do
+algoritmo.}{Acima podemos ver as instâncias que pertencem às demais classes. Em cada uma delas existe um outlier que altera o comportamento do algoritmo.}}\label{acima-podemos-ver-as-instuxe2ncias-que-pertencem-uxe0s-demais-classes.-em-cada-uma-delas-existe-um-outlier-que-altera-o-comportamento-do-algoritmo.}
+
+    \subsection{K-means, K = 10}\label{k-means-k-10}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+         \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{\texorpdfstring{Analisando os rótulos de saída do algoritmo,
+percebem-se 3 classes, de forma que a classe 1 continua sendo afetada
+pelo desbalanceamento de classes causado pelo \emph{outlier} presente na
+coluna
+\texttt{"pancreas"}}{Analisando os rótulos de saída do algoritmo, percebem-se 3 classes, de forma que a classe 1 continua sendo afetada pelo desbalanceamento de classes causado pelo outlier presente na coluna "pancreas"}}\label{analisando-os-ruxf3tulos-de-sauxedda-do-algoritmo-percebem-se-3-classes-de-forma-que-a-classe-1-continua-sendo-afetada-pelo-desbalanceamento-de-classes-causado-pelo-outlier-presente-na-coluna-pancreas}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{unique}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{dicionario} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{unique}\PY{p}{,} \PY{n}{counts}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dicionario}\PY{p}{)}
+         \PY{n}{lista} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dicionario}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Classe}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: 1925, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 66, 7: 1, 8: 2, 9: 1\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:}    Classe  Nº Instancias
+         0       0           1925
+         1       1              1
+         2       2              1
+         3       3              1
+         4       4              1
+         5       5              1
+         6       6             66
+         7       7              1
+         8       8              2
+         9       9              1
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{Podemos perceber uma melhoria, com a
+classe 6 possuindo 66 instâncias, mas pode ser que todas elas sejam
+\emph{outliers}.}{Podemos perceber uma melhoria, com a classe 6 possuindo 66 instâncias, mas pode ser que todas elas sejam outliers.}}\label{podemos-perceber-uma-melhoria-com-a-classe-6-possuindo-66-instuxe2ncias-mas-pode-ser-que-todas-elas-sejam-outliers.}
+
+\subsubsection{\texorpdfstring{Adicionando a coluna calculada
+\texttt{kmeans.label\_} ao conjunto de
+dados}{Adicionando a coluna calculada kmeans.label\_ ao conjunto de dados}}\label{adicionando-a-coluna-calculada-kmeans.label_-ao-conjunto-de-dados}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}       adipose\_tissue  adrenal\_gland  animal\_ovary     appendix      bladder  \textbackslash{}
+         393       621.921288     586.903809    726.130275  3459.251765  1998.657487   
+         510      2138.647694     794.959656   3768.027372  3800.906260  1587.586089   
+         591         0.317307       1.863187      0.000004     0.711780     0.708744   
+         1315     2027.590321    1400.495332   2296.141680  7644.519332  4514.697940   
+         1657        1.903841       1.552656      3.925029     2.847121     3.543719   
+         1718     7377.382624    3490.369741   4827.785071  5295.644677  7548.121360   
+         1874       28.557610      46.579667     54.950399  1854.187417   836.317672   
+         1933        0.317307       0.000003      0.000004     0.000004     0.000004   
+         1940        1.903841       0.000003     39.250285     1.779450     0.354372   
+         
+                bone\_marrow  cerebral\_cortex        colon     duodenum  endometrium  \textbackslash{}
+         393     644.389201       450.261176   786.210311  1476.538312   827.738599   
+         510    1518.243824      2663.409328  3528.732999  1139.201844  1073.937771   
+         591       0.628672         0.381577     0.307113     0.000003     0.000004   
+         1315   3463.984873      2430.647195  2346.346398  1800.049515  6460.605882   
+         1657      3.143362         3.815773     2.764021     2.488548    16.979253   
+         1718   6349.591147      1938.412520  3095.703101  4330.073027  2996.838208   
+         1874  12623.741610        19.078863   546.661857  5275.721159   114.609960   
+         1933      0.000003         0.000004     1.228454     2.765053     0.000004   
+         1940      0.000003         0.000004     0.307113    19.355371     0.424481   
+         
+                 esophagus  fallopian\_tube   gallbladder        heart       kidney  \textbackslash{}
+         393    511.969171     1772.872400   2049.160960   179.320080   453.572584   
+         510    999.391875     1113.474425   1861.762542   342.949654   495.939254   
+         591      0.350664        0.394849      0.814776     6.724503     1.246079   
+         1315  3857.301972     3293.041385   3637.973632   428.126692   799.982414   
+         1657     2.805311     9733.029992      4.073879     0.672450     2.492157   
+         1718  2114.502808     3158.792695  12201.266550  1187.995534  5587.416115   
+         1874   199.878375      110.557744   3055.408986    26.898012    32.398042   
+         1933     0.000004        0.789698      8.147757     0.000002    34.890199   
+         1940     0.000004        0.789698      0.000004     8.966004     0.000002   
+         
+                      liver         lung   lymph\_node      pancreas     placenta  \textbackslash{}
+         393     532.393163  3921.923707  5612.861412     70.298851   346.775824   
+         510     476.813657  2925.817586  3549.309422    148.631857  2613.203533   
+         591       0.000003     0.390630    26.263389      0.000002     0.412828   
+         1315   1292.954824  4394.585827  7931.543465    188.802629  3798.020932   
+         1657      5.850474     3.906299     7.503825      0.200854     8.256567   
+         1718   5344.408289  9707.151804  5612.861412    843.586214  9032.684565   
+         1874    125.785198  2179.714570  1485.757432     18.076847   202.285898   
+         1933  13058.258680    15.625194     0.000004      4.017077     0.000004   
+         1940      0.000003     0.781260     0.375191  48970.179710    37.154553   
+         
+                  prostate       rectum  salivary\_gland  skeletal\_muscle         skin  \textbackslash{}
+         393    507.687681  1079.879800      565.954301        66.221554   591.541126   
+         510    793.708910  2558.912879      482.804617       123.898392   343.688699   
+         591      0.715053     0.309421        1.341124         0.000002     2.313289   
+         1315  3128.357190  2558.912879      992.431712       183.711409  1391.278291   
+         1657     7.150531     6.188423        2.145798         1.068090     9.914097   
+         1718  2288.169831  3945.119614     1166.777824       324.699234  1311.965514   
+         1874    60.779511   519.827526    13529.258260         2.136179    99.140971   
+         1933     0.000004     0.928263        0.000003         0.000002     0.000003   
+         1940     0.357527     0.000003       18.775735         0.213618     1.652350   
+         
+               small\_intestine  smooth\_muscle        spleen      stomach       testis  \textbackslash{}
+         393       2133.287574    1291.521900   6463.155915  1527.247028   199.442884   
+         510       2456.422297    1797.084749   3833.015631  1715.215893  1091.687363   
+         591          0.000003       0.424843      0.367852     0.000003     2.449299   
+         1315      2600.037730    8322.669088   5201.424283  2232.130272  1137.174337   
+         1657         2.094392       4.248427      3.678518     2.643312    17.494990   
+         1718      5032.524122    4112.477630  12036.110500  3072.116138  1445.086157   
+         1874      2058.487869     195.427656   1364.730134  7486.447452    24.492986   
+         1933         1.196795       0.000004      0.000004     5.874027     0.349900   
+         1940        11.967953       0.424843      3.678518     5.874027     2.799198   
+         
+                    thyroid       tonsil               class  K-classes  
+         393     609.157832  5352.577737  b'ENSG00000019582'          8  
+         510     751.141989  2533.426473  b'ENSG00000034510'          8  
+         591   32253.304180     0.952416  b'ENSG00000042832'          4  
+         1315   2729.759911  6231.975147  b'ENSG00000075624'          5  
+         1657      1.832054     3.174720  b'ENSG00000085465'          7  
+         1718   4919.064000  2809.627104  b'ENSG00000087086'          2  
+         1874     87.022547  1561.962187  b'ENSG00000090382'          3  
+         1933      0.000005     0.000003  b'ENSG00000091583'          9  
+         1940      0.000005     0.000003  b'ENSG00000091704'          1  
+\end{Verbatim}
+            
+    \subsection{K-means, K = 100}\label{k-means-k-100}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+         \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{unique}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{dicionario} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{unique}\PY{p}{,} \PY{n}{counts}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dicionario}\PY{p}{)}
+         \PY{n}{lista} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dicionario}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Classe}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: 38, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1, 8: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 86, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 22: 13, 23: 1, 24: 2, 25: 1, 26: 1, 27: 1, 28: 1, 29: 4, 30: 24, 31: 2, 32: 3, 33: 1, 34: 1, 35: 1, 36: 1, 37: 1, 38: 448, 39: 1, 40: 1, 41: 1, 42: 1, 43: 73, 44: 2, 45: 2, 46: 1, 47: 1, 48: 4, 49: 5, 50: 9, 51: 2, 52: 1, 53: 1, 54: 9, 55: 519, 56: 1, 57: 5, 58: 5, 59: 6, 60: 22, 61: 1, 62: 3, 63: 1, 64: 7, 65: 8, 66: 1, 67: 2, 68: 1, 69: 1, 70: 2, 71: 1, 72: 47, 73: 12, 74: 4, 75: 1, 76: 8, 77: 2, 78: 1, 79: 160, 80: 1, 81: 15, 82: 8, 83: 1, 84: 1, 85: 1, 86: 1, 87: 1, 88: 5, 89: 25, 90: 7, 91: 300, 92: 13, 93: 1, 94: 1, 95: 28, 96: 1, 97: 1, 98: 3, 99: 1\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}     Classe  Nº Instancias
+         0        0             38
+         1        1              1
+         2        2              1
+         3        3              1
+         4        4              1
+         5        5              1
+         6        6              1
+         7        7              1
+         8        8              1
+         9        9              1
+         10      10              1
+         11      11              1
+         12      12              1
+         13      13              1
+         14      14              1
+         15      15              1
+         16      16             86
+         17      17              1
+         18      18              1
+         19      19              1
+         20      20              1
+         21      21              1
+         22      22             13
+         23      23              1
+         24      24              2
+         25      25              1
+         26      26              1
+         27      27              1
+         28      28              1
+         29      29              4
+         ..     {\ldots}            {\ldots}
+         70      70              2
+         71      71              1
+         72      72             47
+         73      73             12
+         74      74              4
+         75      75              1
+         76      76              8
+         77      77              2
+         78      78              1
+         79      79            160
+         80      80              1
+         81      81             15
+         82      82              8
+         83      83              1
+         84      84              1
+         85      85              1
+         86      86              1
+         87      87              1
+         88      88              5
+         89      89             25
+         90      90              7
+         91      91            300
+         92      92             13
+         93      93              1
+         94      94              1
+         95      95             28
+         96      96              1
+         97      97              1
+         98      98              3
+         99      99              1
+         
+         [100 rows x 2 columns]
+\end{Verbatim}
+            
+    \subsubsection{Observando quais classes possuem mais de 10
+instâncias...}\label{observando-quais-classes-possuem-mais-de-10-instuxe2ncias...}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{class\PYZus{}instances}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{class\PYZus{}instances}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:}     Classe  Nº Instancias
+         0        0             38
+         16      16             86
+         22      22             13
+         30      30             24
+         38      38            448
+         43      43             73
+         55      55            519
+         60      60             22
+         72      72             47
+         73      73             12
+         79      79            160
+         81      81             15
+         89      89             25
+         91      91            300
+         92      92             13
+         95      95             28
+\end{Verbatim}
+            
+    \subparagraph{\texorpdfstring{É possível perceber que o número de
+instâncias em algumas classes aumentou consideravelmente. Isso pode ser
+explicado pelo fato de que existem mais classes a serem alocadas, logo,
+os \emph{outliers} podem ficar em classes individuais sem atrapalhar
+tanto o algoritmo como acontecia com as outras classes para um k
+menor.}{É possível perceber que o número de instâncias em algumas classes aumentou consideravelmente. Isso pode ser explicado pelo fato de que existem mais classes a serem alocadas, logo, os outliers podem ficar em classes individuais sem atrapalhar tanto o algoritmo como acontecia com as outras classes para um k menor.}}\label{uxe9-possuxedvel-perceber-que-o-nuxfamero-de-instuxe2ncias-em-algumas-classes-aumentou-consideravelmente.-isso-pode-ser-explicado-pelo-fato-de-que-existem-mais-classes-a-serem-alocadas-logo-os-outliers-podem-ficar-em-classes-individuais-sem-atrapalhar-tanto-o-algoritmo-como-acontecia-com-as-outras-classes-para-um-k-menor.}
+
+    \subsubsection{\texorpdfstring{Adicionando a coluna calculada
+\texttt{kmeans.label\_} ao conjunto de
+dados}{Adicionando a coluna calculada kmeans.label\_ ao conjunto de dados}}\label{adicionando-a-coluna-calculada-kmeans.label_-ao-conjunto-de-dados}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pancreas}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{40000}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:}       adipose\_tissue  adrenal\_gland  animal\_ovary  appendix   bladder  \textbackslash{}
+         1940        1.903841       0.000003     39.250285   1.77945  0.354372   
+         
+               bone\_marrow  cerebral\_cortex     colon   duodenum  endometrium  \textbackslash{}
+         1940     0.000003         0.000004  0.307113  19.355371     0.424481   
+         
+               esophagus  fallopian\_tube  gallbladder     heart    kidney     liver  \textbackslash{}
+         1940   0.000004        0.789698     0.000004  8.966004  0.000002  0.000003   
+         
+                  lung  lymph\_node     pancreas   placenta  prostate    rectum  \textbackslash{}
+         1940  0.78126    0.375191  48970.17971  37.154553  0.357527  0.000003   
+         
+               salivary\_gland  skeletal\_muscle     skin  small\_intestine  \textbackslash{}
+         1940       18.775735         0.213618  1.65235        11.967953   
+         
+               smooth\_muscle    spleen   stomach    testis   thyroid    tonsil  \textbackslash{}
+         1940       0.424843  3.678518  5.874027  2.799198  0.000005  0.000003   
+         
+                            class  K-classes  
+         1940  b'ENSG00000091704'          1  
+\end{Verbatim}
+            
+    \subsection{Hierárquico, K = 2}\label{hieruxe1rquico-k-2}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{AgglomerativeClustering}
+         \PY{n}{clustering} \PY{o}{=} \PY{n}{AgglomerativeClustering}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{affinity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linkage}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ward}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{clustering}\PY{o}{.}\PY{n}{labels\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{unique}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{dicionario} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{unique}\PY{p}{,} \PY{n}{counts}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dicionario}\PY{p}{)}
+         \PY{n}{lista} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dicionario}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Classe}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: 1999, 1: 1\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:}    Classe  Nº Instancias
+         0       0           1999
+         1       1              1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{dataset}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes\PYZhy{}hierar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{clustering}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pancreas}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{40000}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:}       adipose\_tissue  adrenal\_gland  animal\_ovary  appendix   bladder  \textbackslash{}
+         1940        1.903841       0.000003     39.250285   1.77945  0.354372   
+         
+               bone\_marrow  cerebral\_cortex     colon   duodenum  endometrium  \textbackslash{}
+         1940     0.000003         0.000004  0.307113  19.355371     0.424481   
+         
+               esophagus  fallopian\_tube  gallbladder     heart    kidney     liver  \textbackslash{}
+         1940   0.000004        0.789698     0.000004  8.966004  0.000002  0.000003   
+         
+                  lung  lymph\_node     pancreas   placenta  prostate    rectum  \textbackslash{}
+         1940  0.78126    0.375191  48970.17971  37.154553  0.357527  0.000003   
+         
+               salivary\_gland  skeletal\_muscle     skin  small\_intestine  \textbackslash{}
+         1940       18.775735         0.213618  1.65235        11.967953   
+         
+               smooth\_muscle    spleen   stomach    testis   thyroid    tonsil  \textbackslash{}
+         1940       0.424843  3.678518  5.874027  2.799198  0.000005  0.000003   
+         
+                            class  K-classes-hierar  
+         1940  b'ENSG00000091704'                 1  
+\end{Verbatim}
+            
+    \subsection{Hierárquico, K = 5}\label{hieruxe1rquico-k-5}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{AgglomerativeClustering}
+         \PY{n}{clustering} \PY{o}{=} \PY{n}{AgglomerativeClustering}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{affinity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linkage}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ward}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{clustering}\PY{o}{.}\PY{n}{labels\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Percebemos que a classe 2 possui muitas instâncias quando
+comparamos com as outras classes, o que caracteriza um desbalanceamento
+de classes. Com o desbalanceamento, isto prejudica significativamente a
+classificação do algoritmo e separação em
+grupos.}\label{percebemos-que-a-classe-2-possui-muitas-instuxe2ncias-quando-comparamos-com-as-outras-classes-o-que-caracteriza-um-desbalanceamento-de-classes.-com-o-desbalanceamento-isto-prejudica-significativamente-a-classificauxe7uxe3o-do-algoritmo-e-separauxe7uxe3o-em-grupos.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{unique}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{dicionario} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{unique}\PY{p}{,} \PY{n}{counts}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dicionario}\PY{p}{)}
+         \PY{n}{lista} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dicionario}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Classe}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: 4, 1: 1, 2: 1993, 3: 1, 4: 1\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:}    Classe  Nº Instancias
+         0       0              4
+         1       1              1
+         2       2           1993
+         3       3              1
+         4       4              1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes\PYZhy{}hierar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{clustering}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes\PYZhy{}hierar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:}       adipose\_tissue  adrenal\_gland  animal\_ovary     appendix      bladder  \textbackslash{}
+         393       621.921288     586.903809    726.130275  3459.251765  1998.657487   
+         510      2138.647694     794.959656   3768.027372  3800.906260  1587.586089   
+         591         0.317307       1.863187      0.000004     0.711780     0.708744   
+         1315     2027.590321    1400.495332   2296.141680  7644.519332  4514.697940   
+         1718     7377.382624    3490.369741   4827.785071  5295.644677  7548.121360   
+         1874       28.557610      46.579667     54.950399  1854.187417   836.317672   
+         1940        1.903841       0.000003     39.250285     1.779450     0.354372   
+         
+                bone\_marrow  cerebral\_cortex        colon     duodenum  endometrium  \textbackslash{}
+         393     644.389201       450.261176   786.210311  1476.538312   827.738599   
+         510    1518.243824      2663.409328  3528.732999  1139.201844  1073.937771   
+         591       0.628672         0.381577     0.307113     0.000003     0.000004   
+         1315   3463.984873      2430.647195  2346.346398  1800.049515  6460.605882   
+         1718   6349.591147      1938.412520  3095.703101  4330.073027  2996.838208   
+         1874  12623.741610        19.078863   546.661857  5275.721159   114.609960   
+         1940      0.000003         0.000004     0.307113    19.355371     0.424481   
+         
+                 esophagus  fallopian\_tube   gallbladder        heart       kidney  \textbackslash{}
+         393    511.969171     1772.872400   2049.160960   179.320080   453.572584   
+         510    999.391875     1113.474425   1861.762542   342.949654   495.939254   
+         591      0.350664        0.394849      0.814776     6.724503     1.246079   
+         1315  3857.301972     3293.041385   3637.973632   428.126692   799.982414   
+         1718  2114.502808     3158.792695  12201.266550  1187.995534  5587.416115   
+         1874   199.878375      110.557744   3055.408986    26.898012    32.398042   
+         1940     0.000004        0.789698      0.000004     8.966004     0.000002   
+         
+                     liver         lung   lymph\_node      pancreas     placenta  \textbackslash{}
+         393    532.393163  3921.923707  5612.861412     70.298851   346.775824   
+         510    476.813657  2925.817586  3549.309422    148.631857  2613.203533   
+         591      0.000003     0.390630    26.263389      0.000002     0.412828   
+         1315  1292.954824  4394.585827  7931.543465    188.802629  3798.020932   
+         1718  5344.408289  9707.151804  5612.861412    843.586214  9032.684565   
+         1874   125.785198  2179.714570  1485.757432     18.076847   202.285898   
+         1940     0.000003     0.781260     0.375191  48970.179710    37.154553   
+         
+                  prostate       rectum  salivary\_gland  skeletal\_muscle         skin  \textbackslash{}
+         393    507.687681  1079.879800      565.954301        66.221554   591.541126   
+         510    793.708910  2558.912879      482.804617       123.898392   343.688699   
+         591      0.715053     0.309421        1.341124         0.000002     2.313289   
+         1315  3128.357190  2558.912879      992.431712       183.711409  1391.278291   
+         1718  2288.169831  3945.119614     1166.777824       324.699234  1311.965514   
+         1874    60.779511   519.827526    13529.258260         2.136179    99.140971   
+         1940     0.357527     0.000003       18.775735         0.213618     1.652350   
+         
+               small\_intestine  smooth\_muscle        spleen      stomach       testis  \textbackslash{}
+         393       2133.287574    1291.521900   6463.155915  1527.247028   199.442884   
+         510       2456.422297    1797.084749   3833.015631  1715.215893  1091.687363   
+         591          0.000003       0.424843      0.367852     0.000003     2.449299   
+         1315      2600.037730    8322.669088   5201.424283  2232.130272  1137.174337   
+         1718      5032.524122    4112.477630  12036.110500  3072.116138  1445.086157   
+         1874      2058.487869     195.427656   1364.730134  7486.447452    24.492986   
+         1940        11.967953       0.424843      3.678518     5.874027     2.799198   
+         
+                    thyroid       tonsil               class  K-classes-hierar  
+         393     609.157832  5352.577737  b'ENSG00000019582'                 0  
+         510     751.141989  2533.426473  b'ENSG00000034510'                 0  
+         591   32253.304180     0.952416  b'ENSG00000042832'                 3  
+         1315   2729.759911  6231.975147  b'ENSG00000075624'                 0  
+         1718   4919.064000  2809.627104  b'ENSG00000087086'                 0  
+         1874     87.022547  1561.962187  b'ENSG00000090382'                 4  
+         1940      0.000005     0.000003  b'ENSG00000091704'                 1  
+\end{Verbatim}
+            
+    \subsection{Hierárquico, K = 10}\label{hieruxe1rquico-k-10}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{AgglomerativeClustering}
+         \PY{n}{clustering} \PY{o}{=} \PY{n}{AgglomerativeClustering}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{affinity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linkage}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ward}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{clustering}\PY{o}{.}\PY{n}{labels\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{unique}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{dicionario} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{unique}\PY{p}{,} \PY{n}{counts}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dicionario}\PY{p}{)}
+         \PY{n}{lista} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dicionario}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Classe}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: 60, 1: 1, 2: 1931, 3: 1, 4: 1, 5: 1, 6: 2, 7: 1, 8: 1, 9: 1\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:}    Classe  Nº Instancias
+         0       0             60
+         1       1              1
+         2       2           1931
+         3       3              1
+         4       4              1
+         5       5              1
+         6       6              2
+         7       7              1
+         8       8              1
+         9       9              1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes\PYZhy{}hierar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{clustering}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes\PYZhy{}hierar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes\PYZhy{}hierar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:}       adipose\_tissue  adrenal\_gland  animal\_ovary     appendix      bladder  \textbackslash{}
+         393       621.921288     586.903809    726.130275  3459.251765  1998.657487   
+         510      2138.647694     794.959656   3768.027372  3800.906260  1587.586089   
+         591         0.317307       1.863187      0.000004     0.711780     0.708744   
+         1315     2027.590321    1400.495332   2296.141680  7644.519332  4514.697940   
+         1657        1.903841       1.552656      3.925029     2.847121     3.543719   
+         1718     7377.382624    3490.369741   4827.785071  5295.644677  7548.121360   
+         1874       28.557610      46.579667     54.950399  1854.187417   836.317672   
+         1933        0.317307       0.000003      0.000004     0.000004     0.000004   
+         1940        1.903841       0.000003     39.250285     1.779450     0.354372   
+         
+                bone\_marrow  cerebral\_cortex        colon     duodenum  endometrium  \textbackslash{}
+         393     644.389201       450.261176   786.210311  1476.538312   827.738599   
+         510    1518.243824      2663.409328  3528.732999  1139.201844  1073.937771   
+         591       0.628672         0.381577     0.307113     0.000003     0.000004   
+         1315   3463.984873      2430.647195  2346.346398  1800.049515  6460.605882   
+         1657      3.143362         3.815773     2.764021     2.488548    16.979253   
+         1718   6349.591147      1938.412520  3095.703101  4330.073027  2996.838208   
+         1874  12623.741610        19.078863   546.661857  5275.721159   114.609960   
+         1933      0.000003         0.000004     1.228454     2.765053     0.000004   
+         1940      0.000003         0.000004     0.307113    19.355371     0.424481   
+         
+                 esophagus  fallopian\_tube   gallbladder        heart       kidney  \textbackslash{}
+         393    511.969171     1772.872400   2049.160960   179.320080   453.572584   
+         510    999.391875     1113.474425   1861.762542   342.949654   495.939254   
+         591      0.350664        0.394849      0.814776     6.724503     1.246079   
+         1315  3857.301972     3293.041385   3637.973632   428.126692   799.982414   
+         1657     2.805311     9733.029992      4.073879     0.672450     2.492157   
+         1718  2114.502808     3158.792695  12201.266550  1187.995534  5587.416115   
+         1874   199.878375      110.557744   3055.408986    26.898012    32.398042   
+         1933     0.000004        0.789698      8.147757     0.000002    34.890199   
+         1940     0.000004        0.789698      0.000004     8.966004     0.000002   
+         
+                      liver         lung   lymph\_node      pancreas     placenta  \textbackslash{}
+         393     532.393163  3921.923707  5612.861412     70.298851   346.775824   
+         510     476.813657  2925.817586  3549.309422    148.631857  2613.203533   
+         591       0.000003     0.390630    26.263389      0.000002     0.412828   
+         1315   1292.954824  4394.585827  7931.543465    188.802629  3798.020932   
+         1657      5.850474     3.906299     7.503825      0.200854     8.256567   
+         1718   5344.408289  9707.151804  5612.861412    843.586214  9032.684565   
+         1874    125.785198  2179.714570  1485.757432     18.076847   202.285898   
+         1933  13058.258680    15.625194     0.000004      4.017077     0.000004   
+         1940      0.000003     0.781260     0.375191  48970.179710    37.154553   
+         
+                  prostate       rectum  salivary\_gland  skeletal\_muscle         skin  \textbackslash{}
+         393    507.687681  1079.879800      565.954301        66.221554   591.541126   
+         510    793.708910  2558.912879      482.804617       123.898392   343.688699   
+         591      0.715053     0.309421        1.341124         0.000002     2.313289   
+         1315  3128.357190  2558.912879      992.431712       183.711409  1391.278291   
+         1657     7.150531     6.188423        2.145798         1.068090     9.914097   
+         1718  2288.169831  3945.119614     1166.777824       324.699234  1311.965514   
+         1874    60.779511   519.827526    13529.258260         2.136179    99.140971   
+         1933     0.000004     0.928263        0.000003         0.000002     0.000003   
+         1940     0.357527     0.000003       18.775735         0.213618     1.652350   
+         
+               small\_intestine  smooth\_muscle        spleen      stomach       testis  \textbackslash{}
+         393       2133.287574    1291.521900   6463.155915  1527.247028   199.442884   
+         510       2456.422297    1797.084749   3833.015631  1715.215893  1091.687363   
+         591          0.000003       0.424843      0.367852     0.000003     2.449299   
+         1315      2600.037730    8322.669088   5201.424283  2232.130272  1137.174337   
+         1657         2.094392       4.248427      3.678518     2.643312    17.494990   
+         1718      5032.524122    4112.477630  12036.110500  3072.116138  1445.086157   
+         1874      2058.487869     195.427656   1364.730134  7486.447452    24.492986   
+         1933         1.196795       0.000004      0.000004     5.874027     0.349900   
+         1940        11.967953       0.424843      3.678518     5.874027     2.799198   
+         
+                    thyroid       tonsil               class  K-classes-hierar  
+         393     609.157832  5352.577737  b'ENSG00000019582'                 6  
+         510     751.141989  2533.426473  b'ENSG00000034510'                 6  
+         591   32253.304180     0.952416  b'ENSG00000042832'                 7  
+         1315   2729.759911  6231.975147  b'ENSG00000075624'                 8  
+         1657      1.832054     3.174720  b'ENSG00000085465'                 9  
+         1718   4919.064000  2809.627104  b'ENSG00000087086'                 5  
+         1874     87.022547  1561.962187  b'ENSG00000090382'                 4  
+         1933      0.000005     0.000003  b'ENSG00000091583'                 3  
+         1940      0.000005     0.000003  b'ENSG00000091704'                 1  
+\end{Verbatim}
+            
+    \subsection{Hierárquico, K = 100}\label{hieruxe1rquico-k-100}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{AgglomerativeClustering}
+         \PY{n}{clustering} \PY{o}{=} \PY{n}{AgglomerativeClustering}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{affinity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linkage}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ward}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{clustering}\PY{o}{.}\PY{n}{labels\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{unique}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{dicionario} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{unique}\PY{p}{,} \PY{n}{counts}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dicionario}\PY{p}{)}
+         \PY{n}{lista} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dicionario}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Classe}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: 564, 1: 2, 2: 10, 3: 28, 4: 10, 5: 12, 6: 8, 7: 6, 8: 4, 9: 69, 10: 9, 11: 34, 12: 5, 13: 2, 14: 2, 15: 2, 16: 15, 17: 3, 18: 13, 19: 17, 20: 333, 21: 8, 22: 2, 23: 320, 24: 2, 25: 1, 26: 1, 27: 2, 28: 2, 29: 60, 30: 1, 31: 1, 32: 1, 33: 3, 34: 20, 35: 1, 36: 2, 37: 1, 38: 4, 39: 1, 40: 19, 41: 4, 42: 1, 43: 6, 44: 203, 45: 1, 46: 2, 47: 2, 48: 33, 49: 79, 50: 1, 51: 1, 52: 1, 53: 1, 54: 1, 55: 1, 56: 1, 57: 2, 58: 4, 59: 1, 60: 4, 61: 1, 62: 1, 63: 1, 64: 1, 65: 1, 66: 1, 67: 1, 68: 1, 69: 1, 70: 1, 71: 1, 72: 1, 73: 1, 74: 3, 75: 1, 76: 1, 77: 1, 78: 1, 79: 1, 80: 1, 81: 1, 82: 1, 83: 1, 84: 1, 85: 1, 86: 1, 87: 1, 88: 8, 89: 1, 90: 4, 91: 1, 92: 1, 93: 1, 94: 1, 95: 1, 96: 1, 97: 1, 98: 1, 99: 1\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:}     Classe  Nº Instancias
+         0        0            564
+         1        1              2
+         2        2             10
+         3        3             28
+         4        4             10
+         5        5             12
+         6        6              8
+         7        7              6
+         8        8              4
+         9        9             69
+         10      10              9
+         11      11             34
+         12      12              5
+         13      13              2
+         14      14              2
+         15      15              2
+         16      16             15
+         17      17              3
+         18      18             13
+         19      19             17
+         20      20            333
+         21      21              8
+         22      22              2
+         23      23            320
+         24      24              2
+         25      25              1
+         26      26              1
+         27      27              2
+         28      28              2
+         29      29             60
+         ..     {\ldots}            {\ldots}
+         70      70              1
+         71      71              1
+         72      72              1
+         73      73              1
+         74      74              3
+         75      75              1
+         76      76              1
+         77      77              1
+         78      78              1
+         79      79              1
+         80      80              1
+         81      81              1
+         82      82              1
+         83      83              1
+         84      84              1
+         85      85              1
+         86      86              1
+         87      87              1
+         88      88              8
+         89      89              1
+         90      90              4
+         91      91              1
+         92      92              1
+         93      93              1
+         94      94              1
+         95      95              1
+         96      96              1
+         97      97              1
+         98      98              1
+         99      99              1
+         
+         [100 rows x 2 columns]
+\end{Verbatim}
+            
+    \subsubsection{Com k = 100 percebemos que há uma diversidade maior de
+classes com mais de dez
+instâncias}\label{com-k-100-percebemos-que-huxe1-uma-diversidade-maior-de-classes-com-mais-de-dez-instuxe2ncias}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{class\PYZus{}instances}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{class\PYZus{}instances}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:}     Classe  Nº Instancias
+         0        0            564
+         3        3             28
+         5        5             12
+         9        9             69
+         11      11             34
+         16      16             15
+         18      18             13
+         19      19             17
+         20      20            333
+         23      23            320
+         29      29             60
+         34      34             20
+         40      40             19
+         44      44            203
+         48      48             33
+         49      49             79
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes\PYZhy{}hierar}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{clustering}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{dataset}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:}        adipose\_tissue  adrenal\_gland  animal\_ovary     appendix      bladder  \textbackslash{}
+         count     2000.000000    2000.000000   2000.000000  2000.000000  2000.000000   
+         mean        39.040157      41.486336     51.338392    52.555181    48.932735   
+         std        195.264717     181.466441    210.726346   252.295704   221.732356   
+         min          0.000003       0.000003      0.000004     0.000004     0.000004   
+         25\%          3.173068       3.105311      3.140023     7.117802     7.087438   
+         50\%         12.692271      15.526556     19.625143    21.353406    21.262314   
+         75\%         31.730678      34.158423     43.175314    46.265713    42.524627   
+         max       7377.382624    5216.922745   4827.785071  7644.519332  7548.121360   
+         
+                 bone\_marrow  cerebral\_cortex        colon     duodenum  endometrium  \textbackslash{}
+         count   2000.000000      2000.000000  2000.000000  2000.000000  2000.000000   
+         mean      53.852077        45.797667    40.663197    39.632611    52.066032   
+         std      393.758129       123.183344   157.028175   185.991398   186.169270   
+         min        0.000003         0.000004     0.000003     0.000003     0.000004   
+         25\%        1.257345         7.631545     3.071134     2.765053     7.428423   
+         50\%        9.430086        19.078863    15.355670    13.825265    21.224067   
+         75\%       34.576981        41.973499    33.782474    30.415583    50.937760   
+         max    12623.741610      2663.409328  3528.732999  5275.721159  6460.605882   
+         
+                  esophagus  fallopian\_tube   gallbladder        heart       kidney  \textbackslash{}
+         count  2000.000000     2000.000000   2000.000000  2000.000000  2000.000000   
+         mean     41.493874       53.691974     57.023709    21.915492    27.728612   
+         std     139.247221      261.725555    314.203534   116.726607   136.411996   
+         min       0.000004        0.000004      0.000004     0.000002     0.000002   
+         25\%       3.506638        7.896982      8.147757     1.569051     2.492157   
+         50\%      14.026553       23.690945     20.369393     6.724503     9.968628   
+         75\%      35.066382       47.381890     48.886544    15.690507    24.921571   
+         max    3857.301972     9733.029992  12201.266550  4512.141526  5587.416115   
+         
+                       liver         lung   lymph\_node      pancreas     placenta  \textbackslash{}
+         count   2000.000000  2000.000000  2000.000000   2000.000000  2000.000000   
+         mean      35.790131    54.864549    54.294117     35.087462    52.105545   
+         std      336.523288   277.654367   277.993904   1108.114405   242.242244   
+         min        0.000003     0.000004     0.000004      0.000002     0.000004   
+         25\%        1.170095     7.812597     3.751913      0.602562     4.128284   
+         50\%        5.850474    23.437791    18.759564      2.008539    20.641418   
+         75\%       17.551423    46.875582    48.774865      6.025616    45.411120   
+         max    13058.258680  9707.151804  7931.543465  48970.179710  9032.684565   
+         
+                   prostate       rectum  salivary\_gland  skeletal\_muscle         skin  \textbackslash{}
+         count  2000.000000  2000.000000     2000.000000      2000.000000  2000.000000   
+         mean     46.389605    42.376928       27.628763        22.053380    35.257338   
+         std     241.613858   165.470468      308.543568       208.651352    95.223057   
+         min       0.000004     0.000003        0.000003         0.000002     0.000003   
+         25\%       7.150531     3.094211        2.414023         0.427236     3.304699   
+         50\%      17.876327    15.471057        8.046744         2.136179    16.523495   
+         75\%      42.903184    34.036326       18.775735         8.544717    36.351689   
+         max    9585.286431  3945.119614    13529.258260      7732.968610  1939.858329   
+         
+                small\_intestine  smooth\_muscle        spleen      stomach       testis  \textbackslash{}
+         count      2000.000000    2000.000000   2000.000000  2000.000000  2000.000000   
+         mean         43.396844      52.185982     56.164531    37.587312    44.472439   
+         std         193.638153     233.848790    347.561819   207.009834   114.878046   
+         min           0.000003       0.000004      0.000004     0.000003     0.000003   
+         25\%           5.983976       4.248427      3.678518     5.874027     6.997996   
+         50\%          14.959941      21.242137     22.071107    14.685068    20.993988   
+         75\%          32.911870      42.484273     47.820732    29.370135    45.486973   
+         max        5032.524122    8322.669088  12036.110500  7486.447452  2554.268510   
+         
+                     thyroid       tonsil  K-classes-hierar  
+         count   2000.000000  2000.000000       2000.000000  
+         mean      72.736881    46.143284         20.402500  
+         std      742.846516   222.768691         19.007371  
+         min        0.000005     0.000003          0.000000  
+         25\%        4.580134     3.174720          0.000000  
+         50\%       22.900670    15.873599         20.000000  
+         75\%       54.961609    38.096639         29.000000  
+         max    32253.304180  6231.975147         99.000000  
+\end{Verbatim}
+            
+    \subparagraph{Para k = 100, percebeu-se que as classes com maior
+quantidade de instâncias foram as iniciais no Hierárquico. Já no
+K-Means, as classes intermediárias apresentaram a maior quantidade de
+instâncias.}\label{para-k-100-percebeu-se-que-as-classes-com-maior-quantidade-de-instuxe2ncias-foram-as-iniciais-no-hieruxe1rquico.-juxe1-no-k-means-as-classes-intermediuxe1rias-apresentaram-a-maior-quantidade-de-instuxe2ncias.}
+
+    \section{2.1. Fixar K no K-means e alterar o parâmetro de quantidade
+máxima de
+iterações}\label{fixar-k-no-k-means-e-alterar-o-paruxe2metro-de-quantidade-muxe1xima-de-iterauxe7uxf5es}
+
+Escolha um número fixo de K e altere o parâmetro do K-Means referente ao
+número máximo de iterações: 1, 10 e 100.
+
+    \subsection{K-means com K = 50, max\_iter =
+1}\label{k-means-com-k-50-max_iter-1}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+         \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{unique}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{dicionario} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{unique}\PY{p}{,} \PY{n}{counts}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dicionario}\PY{p}{)}
+         \PY{n}{lista} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dicionario}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Classe}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: 238, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1, 8: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 568, 15: 2, 16: 1, 17: 6, 18: 1, 19: 1, 20: 2, 21: 72, 22: 1, 23: 1, 24: 1, 25: 11, 26: 4, 27: 2, 28: 952, 29: 1, 30: 1, 31: 31, 32: 1, 33: 2, 34: 3, 35: 1, 36: 1, 37: 1, 38: 2, 39: 3, 40: 35, 41: 2, 42: 2, 43: 27, 44: 1, 45: 2, 46: 5, 47: 1, 48: 1, 49: 1\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:}     Classe  Nº Instancias
+         0        0            238
+         1        1              1
+         2        2              1
+         3        3              1
+         4        4              1
+         5        5              1
+         6        6              1
+         7        7              1
+         8        8              1
+         9        9              1
+         10      10              1
+         11      11              1
+         12      12              1
+         13      13              1
+         14      14            568
+         15      15              2
+         16      16              1
+         17      17              6
+         18      18              1
+         19      19              1
+         20      20              2
+         21      21             72
+         22      22              1
+         23      23              1
+         24      24              1
+         25      25             11
+         26      26              4
+         27      27              2
+         28      28            952
+         29      29              1
+         30      30              1
+         31      31             31
+         32      32              1
+         33      33              2
+         34      34              3
+         35      35              1
+         36      36              1
+         37      37              1
+         38      38              2
+         39      39              3
+         40      40             35
+         41      41              2
+         42      42              2
+         43      43             27
+         44      44              1
+         45      45              2
+         46      46              5
+         47      47              1
+         48      48              1
+         49      49              1
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{Adicionando a coluna calculada
+\texttt{kmeans.label\_} ao conjunto de
+dados}{Adicionando a coluna calculada kmeans.label\_ ao conjunto de dados}}\label{adicionando-a-coluna-calculada-kmeans.label_-ao-conjunto-de-dados}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K\PYZhy{}classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequência}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} Text(0,0.5,'Frequência')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_107_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{class\PYZus{}instances}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{class\PYZus{}instances}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}68}]:}     Classe  Nº Instancias
+         0        0            238
+         14      14            568
+         21      21             72
+         25      25             11
+         28      28            952
+         31      31             31
+         40      40             35
+         43      43             27
+\end{Verbatim}
+            
+    \subsection{K-means com K = 50, max\_iter =
+10}\label{k-means-com-k-50-max_iter-10}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+         \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{unique}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{dicionario} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{unique}\PY{p}{,} \PY{n}{counts}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dicionario}\PY{p}{)}
+         \PY{n}{lista} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dicionario}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Classe}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: 207, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1, 8: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 596, 15: 2, 16: 1, 17: 6, 18: 1, 19: 1, 20: 2, 21: 83, 22: 1, 23: 1, 24: 1, 25: 11, 26: 4, 27: 2, 28: 945, 29: 1, 30: 1, 31: 31, 32: 1, 33: 2, 34: 3, 35: 1, 36: 1, 37: 1, 38: 2, 39: 3, 40: 35, 41: 2, 42: 2, 43: 26, 44: 1, 45: 2, 46: 5, 47: 1, 48: 1, 49: 1\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:}     Classe  Nº Instancias
+         0        0            207
+         1        1              1
+         2        2              1
+         3        3              1
+         4        4              1
+         5        5              1
+         6        6              1
+         7        7              1
+         8        8              1
+         9        9              1
+         10      10              1
+         11      11              1
+         12      12              1
+         13      13              1
+         14      14            596
+         15      15              2
+         16      16              1
+         17      17              6
+         18      18              1
+         19      19              1
+         20      20              2
+         21      21             83
+         22      22              1
+         23      23              1
+         24      24              1
+         25      25             11
+         26      26              4
+         27      27              2
+         28      28            945
+         29      29              1
+         30      30              1
+         31      31             31
+         32      32              1
+         33      33              2
+         34      34              3
+         35      35              1
+         36      36              1
+         37      37              1
+         38      38              2
+         39      39              3
+         40      40             35
+         41      41              2
+         42      42              2
+         43      43             26
+         44      44              1
+         45      45              2
+         46      46              5
+         47      47              1
+         48      48              1
+         49      49              1
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{Adicionando a coluna calculada
+\texttt{kmeans.label\_} ao conjunto de
+dados}{Adicionando a coluna calculada kmeans.label\_ ao conjunto de dados}}\label{adicionando-a-coluna-calculada-kmeans.label_-ao-conjunto-de-dados}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K\PYZhy{}classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequência}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:} Text(0,0.5,'Frequência')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_115_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{class\PYZus{}instances}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{class\PYZus{}instances}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:}     Classe  Nº Instancias
+         0        0            207
+         14      14            596
+         21      21             83
+         25      25             11
+         28      28            945
+         31      31             31
+         40      40             35
+         43      43             26
+\end{Verbatim}
+            
+    \subsection{K-means com K = 50, max\_iter =
+100}\label{k-means-com-k-50-max_iter-100}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+         \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{y\PYZus{}kmeans} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n}{unique}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{dicionario} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{unique}\PY{p}{,} \PY{n}{counts}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{dicionario}\PY{p}{)}
+          \PY{n}{lista} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dicionario}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{class\PYZus{}instances} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Classe}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{class\PYZus{}instances}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: 207, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1, 8: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 596, 15: 2, 16: 1, 17: 6, 18: 1, 19: 1, 20: 2, 21: 83, 22: 1, 23: 1, 24: 1, 25: 11, 26: 4, 27: 2, 28: 945, 29: 1, 30: 1, 31: 31, 32: 1, 33: 2, 34: 3, 35: 1, 36: 1, 37: 1, 38: 2, 39: 3, 40: 35, 41: 2, 42: 2, 43: 26, 44: 1, 45: 2, 46: 5, 47: 1, 48: 1, 49: 1\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}101}]:}     Classe  Nº Instancias
+          0        0            207
+          1        1              1
+          2        2              1
+          3        3              1
+          4        4              1
+          5        5              1
+          6        6              1
+          7        7              1
+          8        8              1
+          9        9              1
+          10      10              1
+          11      11              1
+          12      12              1
+          13      13              1
+          14      14            596
+          15      15              2
+          16      16              1
+          17      17              6
+          18      18              1
+          19      19              1
+          20      20              2
+          21      21             83
+          22      22              1
+          23      23              1
+          24      24              1
+          25      25             11
+          26      26              4
+          27      27              2
+          28      28            945
+          29      29              1
+          30      30              1
+          31      31             31
+          32      32              1
+          33      33              2
+          34      34              3
+          35      35              1
+          36      36              1
+          37      37              1
+          38      38              2
+          39      39              3
+          40      40             35
+          41      41              2
+          42      42              2
+          43      43             26
+          44      44              1
+          45      45              2
+          46      46              5
+          47      47              1
+          48      48              1
+          49      49              1
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{Adicionando a coluna calculada
+\texttt{kmeans.label\_} ao conjunto de
+dados}{Adicionando a coluna calculada kmeans.label\_ ao conjunto de dados}}\label{adicionando-a-coluna-calculada-kmeans.label_-ao-conjunto-de-dados}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{K\PYZhy{}classes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K\PYZhy{}classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequência}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}103}]:} Text(0,0.5,'Frequência')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_123_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{class\PYZus{}instances}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{class\PYZus{}instances}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}104}]:}     Classe  Nº Instancias
+          0        0            207
+          14      14            596
+          21      21             83
+          25      25             11
+          28      28            945
+          31      31             31
+          40      40             35
+          43      43             26
+\end{Verbatim}
+            
+    \section{2.2. Alterar o parâmetro linkage do
+Hierárquico}\label{alterar-o-paruxe2metro-linkage-do-hieruxe1rquico}
+
+    Linkage : \{``ward'', ``complete'', ``average'', ``single''\}, optional
+(default=''ward'') Which linkage criterion to use. The linkage criterion
+determines which distance to use between sets of observation. The
+algorithm will merge the pairs of cluster that minimize this criterion.
+
+ward minimizes the variance of the clusters being merged. average uses
+the average of the distances of each observation of the two sets.
+complete or maximum linkage uses the maximum distances between all
+observations of the two sets. single uses the minimum of the distances
+between all observations of the two sets.
+
+Referência:
+http://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html
+
+    \subsection{Hierárquico, K = 100}\label{hieruxe1rquico-k-100}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{AgglomerativeClustering}
+         \PY{n}{clustering} \PY{o}{=} \PY{n}{AgglomerativeClustering}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{affinity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euclidean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linkage}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{average}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{a} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{clustering}\PY{o}{.}\PY{n}{labels\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{unique}\PY{p}{,} \PY{n}{counts} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{a}\PY{p}{,} \PY{n}{return\PYZus{}counts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{dicionario} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{unique}\PY{p}{,} \PY{n}{counts}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{dicionario}\PY{p}{)}
+         \PY{n}{lista} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{dicionario}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lista}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Classe}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{class\PYZus{}instances}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{0: 1824, 1: 21, 2: 2, 3: 6, 4: 16, 5: 3, 6: 4, 7: 1, 8: 3, 9: 2, 10: 2, 11: 3, 12: 2, 13: 1, 14: 4, 15: 1, 16: 1, 17: 1, 18: 1, 19: 1, 20: 5, 21: 1, 22: 1, 23: 3, 24: 2, 25: 1, 26: 1, 27: 1, 28: 1, 29: 1, 30: 1, 31: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 1, 37: 1, 38: 1, 39: 1, 40: 1, 41: 1, 42: 1, 43: 1, 44: 1, 45: 1, 46: 1, 47: 4, 48: 2, 49: 3, 50: 1, 51: 1, 52: 1, 53: 1, 54: 1, 55: 1, 56: 1, 57: 1, 58: 1, 59: 1, 60: 1, 61: 1, 62: 1, 63: 1, 64: 1, 65: 1, 66: 1, 67: 1, 68: 1, 69: 1, 70: 1, 71: 1, 72: 1, 73: 1, 74: 1, 75: 1, 76: 1, 77: 1, 78: 1, 79: 1, 80: 1, 81: 1, 82: 1, 83: 1, 84: 1, 85: 1, 86: 1, 87: 1, 88: 1, 89: 1, 90: 1, 91: 1, 92: 1, 93: 1, 94: 1, 95: 1, 96: 1, 97: 1, 98: 9, 99: 1\}
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:}     Classe  Nº Instancias
+         0        0           1824
+         1        1             21
+         2        2              2
+         3        3              6
+         4        4             16
+         5        5              3
+         6        6              4
+         7        7              1
+         8        8              3
+         9        9              2
+         10      10              2
+         11      11              3
+         12      12              2
+         13      13              1
+         14      14              4
+         15      15              1
+         16      16              1
+         17      17              1
+         18      18              1
+         19      19              1
+         20      20              5
+         21      21              1
+         22      22              1
+         23      23              3
+         24      24              2
+         25      25              1
+         26      26              1
+         27      27              1
+         28      28              1
+         29      29              1
+         ..     {\ldots}            {\ldots}
+         70      70              1
+         71      71              1
+         72      72              1
+         73      73              1
+         74      74              1
+         75      75              1
+         76      76              1
+         77      77              1
+         78      78              1
+         79      79              1
+         80      80              1
+         81      81              1
+         82      82              1
+         83      83              1
+         84      84              1
+         85      85              1
+         86      86              1
+         87      87              1
+         88      88              1
+         89      89              1
+         90      90              1
+         91      91              1
+         92      92              1
+         93      93              1
+         94      94              1
+         95      95              1
+         96      96              1
+         97      97              1
+         98      98              9
+         99      99              1
+         
+         [100 rows x 2 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{class\PYZus{}instances}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{class\PYZus{}instances}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nº Instancias}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}91}]:}    Classe  Nº Instancias
+         0       0           1824
+         1       1             21
+         4       4             16
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K\PYZhy{}classes\PYZhy{}hierar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{clustering}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{dataset}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}93}]:}        adipose\_tissue  adrenal\_gland  animal\_ovary     appendix      bladder  \textbackslash{}
+         count     2000.000000    2000.000000   2000.000000  2000.000000  2000.000000   
+         mean        39.040157      41.486336     51.338392    52.555181    48.932735   
+         std        195.264717     181.466441    210.726346   252.295704   221.732356   
+         min          0.000003       0.000003      0.000004     0.000004     0.000004   
+         25\%          3.173068       3.105311      3.140023     7.117802     7.087438   
+         50\%         12.692271      15.526556     19.625143    21.353406    21.262314   
+         75\%         31.730678      34.158423     43.175314    46.265713    42.524627   
+         max       7377.382624    5216.922745   4827.785071  7644.519332  7548.121360   
+         
+                 bone\_marrow  cerebral\_cortex        colon     duodenum  endometrium  \textbackslash{}
+         count   2000.000000      2000.000000  2000.000000  2000.000000  2000.000000   
+         mean      53.852077        45.797667    40.663197    39.632611    52.066032   
+         std      393.758129       123.183344   157.028175   185.991398   186.169270   
+         min        0.000003         0.000004     0.000003     0.000003     0.000004   
+         25\%        1.257345         7.631545     3.071134     2.765053     7.428423   
+         50\%        9.430086        19.078863    15.355670    13.825265    21.224067   
+         75\%       34.576981        41.973499    33.782474    30.415583    50.937760   
+         max    12623.741610      2663.409328  3528.732999  5275.721159  6460.605882   
+         
+                  esophagus  fallopian\_tube   gallbladder        heart       kidney  \textbackslash{}
+         count  2000.000000     2000.000000   2000.000000  2000.000000  2000.000000   
+         mean     41.493874       53.691974     57.023709    21.915492    27.728612   
+         std     139.247221      261.725555    314.203534   116.726607   136.411996   
+         min       0.000004        0.000004      0.000004     0.000002     0.000002   
+         25\%       3.506638        7.896982      8.147757     1.569051     2.492157   
+         50\%      14.026553       23.690945     20.369393     6.724503     9.968628   
+         75\%      35.066382       47.381890     48.886544    15.690507    24.921571   
+         max    3857.301972     9733.029992  12201.266550  4512.141526  5587.416115   
+         
+                       liver         lung   lymph\_node      pancreas     placenta  \textbackslash{}
+         count   2000.000000  2000.000000  2000.000000   2000.000000  2000.000000   
+         mean      35.790131    54.864549    54.294117     35.087462    52.105545   
+         std      336.523288   277.654367   277.993904   1108.114405   242.242244   
+         min        0.000003     0.000004     0.000004      0.000002     0.000004   
+         25\%        1.170095     7.812597     3.751913      0.602562     4.128284   
+         50\%        5.850474    23.437791    18.759564      2.008539    20.641418   
+         75\%       17.551423    46.875582    48.774865      6.025616    45.411120   
+         max    13058.258680  9707.151804  7931.543465  48970.179710  9032.684565   
+         
+                   prostate       rectum  salivary\_gland  skeletal\_muscle         skin  \textbackslash{}
+         count  2000.000000  2000.000000     2000.000000      2000.000000  2000.000000   
+         mean     46.389605    42.376928       27.628763        22.053380    35.257338   
+         std     241.613858   165.470468      308.543568       208.651352    95.223057   
+         min       0.000004     0.000003        0.000003         0.000002     0.000003   
+         25\%       7.150531     3.094211        2.414023         0.427236     3.304699   
+         50\%      17.876327    15.471057        8.046744         2.136179    16.523495   
+         75\%      42.903184    34.036326       18.775735         8.544717    36.351689   
+         max    9585.286431  3945.119614    13529.258260      7732.968610  1939.858329   
+         
+                small\_intestine  smooth\_muscle        spleen      stomach       testis  \textbackslash{}
+         count      2000.000000    2000.000000   2000.000000  2000.000000  2000.000000   
+         mean         43.396844      52.185982     56.164531    37.587312    44.472439   
+         std         193.638153     233.848790    347.561819   207.009834   114.878046   
+         min           0.000003       0.000004      0.000004     0.000003     0.000003   
+         25\%           5.983976       4.248427      3.678518     5.874027     6.997996   
+         50\%          14.959941      21.242137     22.071107    14.685068    20.993988   
+         75\%          32.911870      42.484273     47.820732    29.370135    45.486973   
+         max        5032.524122    8322.669088  12036.110500  7486.447452  2554.268510   
+         
+                     thyroid       tonsil  K-classes-hierar    K-classes  
+         count   2000.000000  2000.000000        2000.00000  2000.000000  
+         mean      72.736881    46.143284           3.20350    21.039000  
+         std      742.846516   222.768691          14.20521    10.258708  
+         min        0.000005     0.000003           0.00000     0.000000  
+         25\%        4.580134     3.174720           0.00000    14.000000  
+         50\%       22.900670    15.873599           0.00000    28.000000  
+         75\%       54.961609    38.096639           0.00000    28.000000  
+         max    32253.304180  6231.975147          99.00000    49.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{dataset}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{K\PYZhy{}classes\PYZhy{}hierar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequência}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}94}]:} Text(0,0.5,'Frequência')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_134_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
